@@ -25,10 +25,10 @@ public class ConexionBD {
         DB_driver = "com.mysql.jdbc.Driver";
         if (local) {
             host = "localhost:3306";
-            db = "nombreBaseDeDatos";
+            db = "mibarrio";
             url = "jdbc:mysql://" + host + "/" + db; //URL DB
-            username = "usuarioBaseDeDatos"; //usuario base de datos global 
-            password = "contrasennaBaseDeDatos";
+            username = "root"; //usuario base de datos global 
+            password = "";
         } else {
             host = "mysql1007.mochahost.com:3306";
             db = "nombreBaseDeDatos";
@@ -50,12 +50,8 @@ public class ConexionBD {
         } catch (SQLException ex) {
             Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
         }
-// Realizar la conexin
-// Realizar la conexin
-// Realizar la conexin
-// Realizar la conexin
     }
-//Retornar la conexin
+//Retornar la conexión
 
     public Connection getConnection() {
         return con;
@@ -66,6 +62,7 @@ public class ConexionBD {
         if (con != null) {
             try {
                 con.close();
+                System.out.println("Desconectado");
             } catch (SQLException ex) {
                 Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
             }

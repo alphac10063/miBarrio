@@ -2,8 +2,9 @@ package logica;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.List;
 
@@ -17,44 +18,19 @@ import persistencia.ConexionBD;
  */
 public class Persona {
 
-    @NotNull
-    private Integer idpersona; // Integer // Id or Primary Key
-
-    @NotNull
-    private Integer idtipodocumento;  // Integer 
-    @NotNull
-    @Size(min = 1, max = 20)
+    private int idpersona; // int // Id or Primary Key
+    private int idtipodocumento;  // int 
     private String numdocumento;  // String 
-    @NotNull
-    @Size(min = 1, max = 50)
     private String primernombre;  // String 
-    @NotNull
-    @Size(min = 1, max = 50)
     private String segundonombre;  // String 
-    @NotNull
-    @Size(min = 1, max = 50)
     private String primerapellido;  // String 
-    @NotNull
-    @Size(min = 1, max = 50)
     private String segundoapellido;  // String 
-    @NotNull
-    @Size(min = 1, max = 1)
     private String sexo;  // String 
-    @NotNull
     private Date fechanacimiento;  // Date 
-    @NotNull
-    @Size(min = 1, max = 50)
     private String direccion;  // String 
-    @NotNull
-    @Size(min = 1, max = 20)
     private String telefono;  // String 
-    @NotNull
     private Date fechaalta;  // Date 
-    @NotNull
-    @Size(min = 1, max = 40)
     private String email;  // String 
-    @NotNull
-    @Size(min = 1, max = 1)
     private String estado;  // String 
 
     /**
@@ -73,7 +49,7 @@ public class Persona {
      *
      * @param idpersona
      */
-    public void setIdpersona(Integer idpersona) {
+    public void setIdpersona(int idpersona) {
         this.idpersona = idpersona;
     }
 
@@ -83,7 +59,7 @@ public class Persona {
      *
      * @return the field value
      */
-    public Integer getIdpersona() {
+    public int getIdpersona() {
         return this.idpersona;
     }
 
@@ -96,7 +72,7 @@ public class Persona {
      *
      * @param idtipodocumento
      */
-    public void setIdtipodocumento(Integer idtipodocumento) {
+    public void setIdtipodocumento(int idtipodocumento) {
         this.idtipodocumento = idtipodocumento;
     }
 
@@ -106,7 +82,7 @@ public class Persona {
      *
      * @return the field value
      */
-    public Integer getIdtipodocumento() {
+    public int getIdtipodocumento() {
         return this.idtipodocumento;
     }
 
@@ -350,7 +326,7 @@ public class Persona {
         return this.estado;
     }
 
-    public void llenarPersona(Integer idpersona, Integer idtipodocumento, String numdocumento, String primernombre, String segundonombre, String primerapellido, String segundoapellido, String sexo, Date fechanacimiento, String direccion, String telefono, Date fechaalta, String email, String estado) {
+    public void llenarPersona(int idpersona, int idtipodocumento, String numdocumento, String primernombre, String segundonombre, String primerapellido, String segundoapellido, String sexo, Date fechanacimiento, String direccion, String telefono, Date fechaalta, String email, String estado) {
         this.idpersona = idpersona;
         this.idtipodocumento = idtipodocumento;
         this.numdocumento = numdocumento;
@@ -374,21 +350,25 @@ public class Persona {
         System.out.println("Guardar Persona");
         ConexionBD conexion = new ConexionBD();
 
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
         String SQL_INSERT = "Insert into persona ( idPersona, idTipoDocumento, numDocumento, primerNombre, segundoNombre, primerApellido, segundoApellido, sexo, fechaNacimiento, direccion, telefono, fechaAlta, eMail, estado ) values (";
         SQL_INSERT += this.idpersona;
-        SQL_INSERT += ", '" + this.idtipodocumento;
-        SQL_INSERT += "', '" + this.numdocumento;
+        SQL_INSERT += ", " + this.idtipodocumento;
+        SQL_INSERT += ", '" + this.numdocumento;
         SQL_INSERT += "', '" + this.primernombre;
         SQL_INSERT += "', '" + this.segundonombre;
         SQL_INSERT += "', '" + this.primerapellido;
         SQL_INSERT += "', '" + this.segundoapellido;
         SQL_INSERT += "', '" + this.sexo;
-        SQL_INSERT += "', '" + this.fechanacimiento;
+        SQL_INSERT += "', '" + formatter.format(this.fechanacimiento);
         SQL_INSERT += "', '" + this.direccion;
         SQL_INSERT += "', '" + this.telefono;
-        SQL_INSERT += "', '" + this.fechaalta;
-        SQL_INSERT += "' '" + this.email;
+        SQL_INSERT += "', '" + formatter.format(this.fechaalta);
+        SQL_INSERT += "', '" + this.email;
         SQL_INSERT += "', '" + this.estado + "')";
+
+        System.out.println(SQL_INSERT);
 
         if (conexion.setAutoCommitBD(false)) {
             if (conexion.insertarBD(SQL_INSERT)) {
@@ -409,7 +389,7 @@ public class Persona {
     //----------------------------------------------------------------------
     // Eliminar Persona METHOD
     //----------------------------------------------------------------------        
-    public boolean eliminarPersona() {
+    public boolean eliminarPersona(int idpersona) {
         System.out.println("Eliminar Persona");
         ConexionBD conexion = new ConexionBD();
 
@@ -437,6 +417,8 @@ public class Persona {
     public boolean actualizarPersona() {
         System.out.println("Actualizar Persona");
         ConexionBD conexion = new ConexionBD();
+        
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
         String SQL_UPDATE = "Update persona set idTipoDocumento = '" + this.idtipodocumento + "'";
         SQL_UPDATE += ", numDocumento = '" + this.numdocumento + "'";
@@ -445,10 +427,10 @@ public class Persona {
         SQL_UPDATE += ", primerApellido = '" + this.primerapellido + "'";
         SQL_UPDATE += ", segundoApellido = '" + this.segundoapellido + "'";
         SQL_UPDATE += ", sexo = '" + this.sexo + "'";
-        SQL_UPDATE += ", fechaNacimiento = '" + this.fechanacimiento + "'";
+        SQL_UPDATE += ", fechaNacimiento = '" + formatter.format(this.fechanacimiento) + "'";
         SQL_UPDATE += ", direccion = '" + this.direccion + "'";
         SQL_UPDATE += ", telefono = '" + this.telefono + "'";
-        SQL_UPDATE += ", fechaAlta = '" + this.fechaalta + "'";
+        SQL_UPDATE += ", fechaAlta = '" + formatter.format(this.fechaalta) + "'";
         SQL_UPDATE += ", eMail = '" + this.email + "'";
         SQL_UPDATE += ", estado = '" + this.estado + "'";
         SQL_UPDATE += " where idPersona =" + this.idpersona;
@@ -477,7 +459,7 @@ public class Persona {
         ConexionBD conexion = new ConexionBD();
         List<Persona> listarPersonas = new ArrayList<>();
 
-        String SQL_SELECT_ALL = "Select idPersona, idTipoDocumento, numDocumento, primerNombre, segundoNombre, primerApellido, segundoApellido, sexo, fechaNacimiento, direccion, telefono, fechaAlta, eMail, estado from persona by idPersona desc";
+        String SQL_SELECT_ALL = "Select idPersona, idTipoDocumento, numDocumento, primerNombre, segundoNombre, primerApellido, segundoApellido, sexo, fechaNacimiento, direccion, telefono, fechaAlta, eMail, estado from persona Order by idPersona asc";
 
         ResultSet rs = conexion.consultarBD(SQL_SELECT_ALL);
 
@@ -493,8 +475,9 @@ public class Persona {
             p.setPrimerapellido(rs.getString("primerapellido"));
             p.setSegundoapellido(rs.getString("segundoapellido"));
             p.setSexo(rs.getString("sexo"));
-            p.setFechaalta(rs.getDate("fechanacimiento"));
+            p.setFechanacimiento(rs.getDate("fechanacimiento"));
             p.setDireccion(rs.getString("direccion"));
+            p.setTelefono(rs.getString("telefono"));
             p.setFechaalta(rs.getDate("fechaalta"));
             p.setEmail(rs.getString("email"));
             p.setEstado(rs.getString("estado"));
@@ -524,6 +507,7 @@ public class Persona {
             this.sexo = rs.getString("sexo");
             this.fechanacimiento = rs.getDate("fechanacimiento");
             this.direccion = rs.getString("direccion");
+            this.telefono = rs.getString("telefono");
             this.fechaalta = rs.getDate("fechaalta");
             this.email = rs.getString("email");
             this.estado = rs.getString("estado");

@@ -35,45 +35,57 @@
             //, uso de request.getParameter("nombre parametro")
             // creación de objeto y llamado a método guardar 
 
-            DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            System.out.println(request.getParameter("idpersona"));
+            System.out.println(request.getParameter("fechanacimiento"));
 
-            int idpersona = Integer.parseInt(request.getParameter("idpersona"));
-            int idtipodocumento = Integer.parseInt(request.getParameter("idtipodocumento"));
-            String numdocumento = request.getParameter("numdocumento");
-            String primernombre = request.getParameter("primernombre");
-            String segundonombre = request.getParameter("segundonombre");
-            String primerapellido = request.getParameter("primerapellido");
-            String segundoapellido = request.getParameter("segundoapellido");
-            String sexo = request.getParameter("sexo");
-            Date fechanacimiento = formato.parse(request.getParameter("fechanacimiento"));
-            String direccion = request.getParameter("direccion");
-            String telefono = request.getParameter("telefono");
-            Date fechaalta = formato.parse(request.getParameter("fechaalta"));
-            String email = request.getParameter("email");
-            String estado = request.getParameter("estado");
+            try {
+                int idpersona = Integer.parseInt(request.getParameter("idpersona"));
+                int idtipodocumento = Integer.parseInt(request.getParameter("idtipodocumento"));
+                String numdocumento = request.getParameter("numdocumento");
+                String primernombre = request.getParameter("primernombre");
+                String segundonombre = request.getParameter("segundonombre");
+                String primerapellido = request.getParameter("primerapellido");
+                String segundoapellido = request.getParameter("segundoapellido");
+                String sexo = request.getParameter("sexo");
+                String fechanacimiento = request.getParameter("fechanacimiento").substring(0,10);
+                String direccion = request.getParameter("direccion");
+                String telefono = request.getParameter("telefono");
+                String fechaalta = request.getParameter("fechaalta").substring(0,10);
+                String email = request.getParameter("email");
+                String estado = request.getParameter("estado");
 
-            p.llenarPersona(idpersona, idtipodocumento, numdocumento, primernombre, segundonombre, primerapellido, segundoapellido, sexo, fechanacimiento, direccion, telefono, fechaalta, email, estado);
+                p.llenarPersona(idpersona, idtipodocumento, numdocumento, primernombre, segundonombre, primerapellido, segundoapellido, sexo, fechanacimiento, direccion, telefono, fechaalta, email, estado);
 
-            if (p.guardarPersona()) {
-                respuesta += "\"" + proceso + "\": true";
-            } else {
+                if (p.guardarPersona()) {
+                    respuesta += "\"" + proceso + "\": true";
+                } else {
+                    respuesta += "\"" + proceso + "\": false";
+                }
+            } catch (Exception e) {
                 respuesta += "\"" + proceso + "\": false";
             }
+
         } else if (proceso.equals("eliminarPersona")) {
             //Solicitud de parámetros enviados desde el frontned
             //, uso de request.getParameter("nombre parametro")
-            //creación de objeto y llamado a mÃ©todo eliminar
+            //creación de objeto y llamado a método eliminar
+            try {
+                int idpersona = Integer.parseInt(request.getParameter("idpersona"));
 
-            int idpersona = Integer.parseInt(request.getParameter("idpersona"));
+                System.out.println(request.getParameter("idpersona"));
+                System.out.println((idpersona));
 
-            if (p.eliminarPersona(idpersona)) {
-                respuesta += "\"" + proceso + "\": true";
-            } else {
+                if (p.eliminarPersona(idpersona)) {
+                    respuesta += "\"" + proceso + "\": true";
+                } else {
+                    respuesta += "\"" + proceso + "\": false";
+                }
+            } catch (Exception e) {
                 respuesta += "\"" + proceso + "\": false";
             }
         } else if (proceso.equals("listarPersona")) {
             //Solicitud de parámetros enviados desde el frontned
-            //, uso de request.getParameter("nombre parametro")
+            //, uso de request.getParameter("nombre parámetro")
             //creación de objeto y llamado al metodo listar
             try {
                 List<Persona> lista = p.listarPersonas();
@@ -84,32 +96,31 @@
             }
         } else if (proceso.equals("actualizarPersona")) {
             //creación de objeto y llamado al metodo actualizar
-
-            DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-
-            int idpersona = Integer.parseInt(request.getParameter("idpersona"));
-            int idtipodocumento = Integer.parseInt(request.getParameter("idtipodocumento"));
-            String numdocumento = request.getParameter("numdocumento");
-            String primernombre = request.getParameter("primernombre");
-            String segundonombre = request.getParameter("segundonombre");
-            String primerapellido = request.getParameter("primerapellido");
-            String segundoapellido = request.getParameter("segundoapellido");
-            String sexo = request.getParameter("sexo");
             
-            System.out.println(request.getParameter("fechanacimiento"));
-            
-            Date fechanacimiento = formato.parse(request.getParameter("fechanacimiento"));
-            String direccion = request.getParameter("direccion");
-            String telefono = request.getParameter("telefono");
-            Date fechaalta = formato.parse(request.getParameter("fechaalta"));
-            String email = request.getParameter("email");
-            String estado = request.getParameter("estado");
+            try {
+                int idpersona = Integer.parseInt(request.getParameter("idpersona"));
+                int idtipodocumento = Integer.parseInt(request.getParameter("idtipodocumento"));
+                String numdocumento = request.getParameter("numdocumento");
+                String primernombre = request.getParameter("primernombre");
+                String segundonombre = request.getParameter("segundonombre");
+                String primerapellido = request.getParameter("primerapellido");
+                String segundoapellido = request.getParameter("segundoapellido");
+                String sexo = request.getParameter("sexo");
+                String fechanacimiento = request.getParameter("fechanacimiento").substring(0,10);
+                String direccion = request.getParameter("direccion");
+                String telefono = request.getParameter("telefono");
+                String fechaalta = request.getParameter("fechaalta").substring(0,10);
+                String email = request.getParameter("email");
+                String estado = request.getParameter("estado");
 
-            p.llenarPersona(idpersona, idtipodocumento, numdocumento, primernombre, segundonombre, primerapellido, segundoapellido, sexo, fechanacimiento, direccion, telefono, fechaalta, email, estado);
+                p.llenarPersona(idpersona, idtipodocumento, numdocumento, primernombre, segundonombre, primerapellido, segundoapellido, sexo, fechanacimiento, direccion, telefono, fechaalta, email, estado);
 
-            if (p.actualizarPersona()) {
-                respuesta += "\"" + proceso + "\": true";
-            } else {
+                if (p.actualizarPersona()) {
+                    respuesta += "\"" + proceso + "\": true";
+                } else {
+                    respuesta += "\"" + proceso + "\": false";
+                }
+            } catch (Exception e) {
                 respuesta += "\"" + proceso + "\": false";
             }
         }
@@ -123,7 +134,7 @@
         respuesta += "\"ok\": false,";
         respuesta += "\"error\": \"INVALID\",";
         respuesta += "\"errorMsg\": \"Lo sentimos, los datos que ha enviado,"
-                + " son invÃ¡lidos. Corrijalos y vuelva a intentar por favor.\"";
+                + " son inválidos. Corrijalos y vuelva a intentar por favor.\"";
     }
 // Responder como objeto JSON codificación ISO 8859-1.
     respuesta += "}";

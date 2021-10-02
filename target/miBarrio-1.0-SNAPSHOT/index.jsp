@@ -74,7 +74,7 @@
                                 <div class="form-group">
                                     <label>Tipo de Identificación</label>
                                     <select class="form-control" type="number" name="idtipodocumento" id="idtipodocumento" ng-model="cn.idtipodocumento" required>
-                                        <option value=""> </option>
+                                        <option value="" selected="selected" disabled>Seleccione</option>
                                         <option value="1">Cedula Ciudadanía</option>
                                         <option value="2">Tarjeta Identidad</option>
                                         <option value="3">NIT</option>
@@ -103,8 +103,8 @@
                                 </div> 
                                 <div class="form-group">
                                     <label>Genero</label>
-                                    <select type="text" class="form-control"  name="sexo" id="sexo"  ng-model="cn.sexo" required>
-                                        <option value=" "> </option>
+                                    <select class="form-control"  name="sexo" id="sexo"  ng-model="cn.sexo" required>
+                                        <option value="" selected="selected" disabled>Seleccione</option>
                                         <option value="F">Femenino</option>
                                         <option value="M">Masculino</option>
                                         <option value="O">Otros</option>
@@ -133,7 +133,7 @@
                                 <div class="form-group">
                                     <label>Estado</label>
                                     <select class="form-control" type="text" name="estado" id="estado" ng-model="cn.estado" required>
-                                        <option value=" "> </option>
+                                        <option value="" selected="selected" disabled>Seleccione</option>
                                         <option value="A">Activo</option>
                                         <option value="I">Inactivo</option>
                                     </select> 
